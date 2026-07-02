@@ -1,0 +1,99 @@
+<%- include('./partials/authheader') %>
+<%- include('./partials/sidebar') %>
+
+<main class="dashboard-main">
+    <%- include('./partials/navbar') %>
+
+    <div class="dashboard-main-body admin-page">
+        <section class="page-hero">
+            <div>
+                <span class="section-label">Workspace</span>
+                <h1>Dashboard</h1>
+                <p>Track your blog content and jump into the most common actions.</p>
+            </div>
+
+            <div class="hero-actions">
+                <a href="/dashboard/add-blog" class="btn btn-primary">
+                    Add Blog
+                </a>
+
+                <a href="/dashboard/views-blogs" class="btn btn-light">
+                    View Blogs
+                </a>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <article class="metric-card metric-primary">
+                <div>
+                    <span>Total Blogs</span>
+                    <strong><%= blogs.length %></strong>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div>
+                    <span>Quick Create</span>
+                    <strong>Ready</strong>
+                </div>
+            </article>
+
+            <article class="metric-card">
+                <div>
+                    <span>Content Studio</span>
+                    <strong>Active</strong>
+                </div>
+            </article>
+        </section>
+
+        <section class="content-section">
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">Latest Posts</span>
+                    <h2>Recent Blogs</h2>
+                </div>
+                <a href="/dashboard/views-blogs" class="text-link">Manage all</a>
+            </div>
+
+            <div class="blog-grid">
+                <% if(blogs.length > 0){ %>
+                    <% blogs.forEach(blog => { %>
+                        <article class="blog-card">
+                            <img src="/uploads/<%= blog.blogpicture %>" alt="blog image">
+
+                            <div class="blog-card-body">
+                                <span class="blog-date">
+                                    <%= new Date(blog.date).toLocaleDateString() %>
+                                </span>
+
+                                <h3><%= blog.title %></h3>
+
+                                <p>
+                                    <%= blog.description.length > 100
+                                    ? blog.description.substring(0,100) + "..."
+                                    : blog.description %>
+                                </p>
+                            </div>
+
+                            <div class="blog-card-actions">
+                                <a href="/dashboard/edit-blog/<%= blog._id %>" class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                <a href="/dashboard/delete-blog/<%= blog._id %>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this blog?')">
+                                    Delete
+                                </a>
+                            </div>
+                        </article>
+                    <% }) %>
+                <% } else { %>
+                    <div class="empty-state">
+                        <h3>No Blogs Found</h3>
+                        <p>Start by adding your first blog post.</p>
+                        <a href="/dashboard/add-blog" class="btn btn-primary">Add Blog</a>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+    </div>
+</main>

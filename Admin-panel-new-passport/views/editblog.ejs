@@ -1,0 +1,71 @@
+<%- include('./partials/authheader') %>
+<%- include('./partials/sidebar') %>
+<link rel="stylesheet" href="../css/index.css">
+<main class="dashboard-main">
+    <%- include('./partials/navbar') %>
+
+    <div class="dashboard-main-body admin-page">
+        <section class="page-hero compact">
+            <div>
+                <span class="section-label">Update</span>
+                <h1>Edit Blog</h1>
+                <p>Refine the post details, update the publish date, or replace the blog image.</p>
+            </div>
+
+            <div class="hero-actions">
+                <a href="/dashboard/views-blogs" class="btn btn-light">
+                    Back to Blogs
+                </a>
+            </div>
+        </section>
+
+        <section class="editor-shell">
+            <div class="editor-panel">
+                <div class="editor-heading">
+                    <span class="section-label">Blog Details</span>
+                    <h2>Edit Information</h2>
+                </div>
+
+                <form action="/dashboard/update-blog/<%= blog._id %>" method="POST" enctype="multipart/form-data" class="blog-form">
+                    <div class="form-grid">
+                        <div class="form-field full">
+                            <label class="form-label">Blog Title</label>
+                            <input type="text" name="title" value="<%= blog.title %>" class="form-control" required>
+                        </div>
+
+                        <div class="form-field full">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" rows="6" class="form-control" required><%= blog.description %></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="form-label">Date</label>
+                            <input type="date" name="date" value="<%= blog.date.toISOString().split('T')[0] %>" class="form-control" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="form-label">Change Image</label>
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Update Blog
+                        </button>
+
+                        <a href="/dashboard/views-blogs" class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <aside class="editor-aside image-preview-panel">
+                <span class="section-label">Current Image</span>
+                <h3>Blog Cover</h3>
+                <img src="/uploads/<%= blog.blogpicture %>" alt="Current blog image">
+            </aside>
+        </section>
+    </div>
+</main>

@@ -1,0 +1,71 @@
+<%- include('./partials/authheader') %>
+<%- include('./partials/sidebar') %>
+
+<main class="dashboard-main">
+    <%- include('./partials/navbar') %>
+
+    <div class="dashboard-main-body admin-page">
+        <section class="page-hero compact">
+            <div>
+                <span class="section-label">Create</span>
+                <h1>Add New Blog</h1>
+                <p>Write the title, story, date, and upload the image for your post.</p>
+            </div>
+
+            <div class="hero-actions">
+                <a href="/dashboard/views-blogs" class="btn btn-light">
+                    View Blogs
+                </a>
+            </div>
+        </section>
+
+        <section class="editor-shell">
+            <div class="editor-panel">
+                <div class="editor-heading">
+                    <span class="section-label">Blog Details</span>
+                    <h2>Post Information</h2>
+                </div>
+
+                <form action="/dashboard/adds-blogs" method="POST" enctype="multipart/form-data" class="blog-form">
+                    <div class="form-grid">
+                        <div class="form-field full">
+                            <label class="form-label">Blog Title</label>
+                            <input type="text" name="blogtitle" class="form-control" placeholder="Enter blog title" required>
+                        </div>
+
+                        <div class="form-field full">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" rows="6" class="form-control" placeholder="Enter blog description" required></textarea>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="form-label">Blog Date</label>
+                            <input type="date" name="date" class="form-control" required>
+                        </div>
+
+                        <div class="form-field">
+                            <label class="form-label">Blog Image</label>
+                            <input type="file" name="image" class="form-control" accept="image/*" required>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Add Blog
+                        </button>
+
+                        <a href="/dashboard/views-blogs" class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+<!-- 
+            <aside class="editor-aside">
+                <span class="section-label">Preview Flow</span>
+                <h3>Keep posts clean</h3>
+                <p>Use a short title, a readable description, and an image that clearly represents the blog topic.</p>
+            </aside> -->
+        </section>
+    </div>
+</main>

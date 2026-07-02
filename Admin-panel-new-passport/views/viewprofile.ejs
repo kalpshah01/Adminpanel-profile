@@ -1,0 +1,301 @@
+    <%- include ('./partials/authheader') %>
+    <%
+const profileImage = user?.profileImage || "/images/user.png";
+const fullName = user?.name || "N/A";
+const email = user?.email || "N/A";
+const phone = user?.phone || "N/A";
+const department = user?.department || "N/A";
+const desgination = user?.desgination || "N/A";
+const language = user?.language || "N/A";
+const bio = user?.bio || "N/A";
+%>
+
+
+<%- include('./partials/navbar') %>
+<%- include('./partials/sidebar') %>
+
+    <main class="dashboard-main">
+  <div class="container-fluid px-4">
+       <div class="row gy-4 ps-3 pt-3">
+
+    <!-- LEFT PROFILE CARD -->
+    <div class="col-lg-4">
+        <div class="user-grid-card position-relative border radius-16 overflow-hidden bg-base h-100">
+
+                <img
+    src="/uploads/<%= user?.profileImage ?? 'user.png' %>"
+    alt="Profile"
+>
+
+            <div class="pb-24 ms-16 mb-24 me-16 mt--100">
+
+                <div class="text-center border border-top-0 border-start-0 border-end-0 pb-16">
+
+                   
+
+                    <h6 class="mb-0 mt-16">
+                        <%= user?.name ?? 'N/A' %>
+                    </h6>
+
+                    <span class="text-secondary-light mb-16">
+                        <%= user?.email ?? 'N/A' %>
+                    </span>
+
+                </div>
+
+                <div class="mt-24">
+                    <h6 class="text-xl mb-16">Personal Info</h6>
+
+                    <ul>
+
+                        <li class="d-flex align-items-center gap-1 mb-12">
+                            <span class="w-30 text-md fw-semibold text-primary-light">
+                                Full Name
+                            </span>
+                            <span class="w-70 text-secondary-light fw-medium">
+                                : <%= user?.name ?? 'N/A' %>
+                            </span>
+                        </li>
+
+                        <li class="d-flex align-items-center gap-1 mb-12">
+                            <span class="w-30 text-md fw-semibold text-primary-light">
+                                Email
+                            </span>
+                            <span class="w-70 text-secondary-light fw-medium">
+                                : <%= user?.email ?? 'N/A' %>
+                            </span>
+                        </li>
+
+                        <li class="d-flex align-items-center gap-1 mb-12">
+                            <span class="w-30 text-md fw-semibold text-primary-light">
+                                Phone
+                            </span>
+                            <span class="w-70 text-secondary-light fw-medium">
+                                : <%= user?.phone ?? 'N/A' %>
+                            </span>
+                        </li>
+
+                        <li class="d-flex align-items-center gap-1 mb-12">
+                            <span class="w-30 text-md fw-semibold text-primary-light">
+                                Department
+                            </span>
+                            <span class="w-70 text-secondary-light fw-medium">
+                                : <%= user?.department ?? 'N/A' %>
+                            </span>
+                        </li>
+
+                        <li class="d-flex align-items-center gap-1 mb-12">
+                            <span class="w-30 text-md fw-semibold text-primary-light">
+                                desgination
+                            </span>
+                            <span class="w-70 text-secondary-light fw-medium">
+                                : <%= user?.desgination ?? 'N/A' %>
+                            </span>
+                        </li>
+
+                        <li class="d-flex align-items-center gap-1 mb-12">
+                            <span class="w-30 text-md fw-semibold text-primary-light">
+                                Language
+                            </span>
+                            <span class="w-70 text-secondary-light fw-medium">
+                                : <%= user?.language ?? 'N/A' %>
+                            </span>
+                        </li>
+
+                        <li class="d-flex align-items-center gap-1">
+                            <span class="w-30 text-md fw-semibold text-primary-light">
+                                Bio
+                            </span>
+                            <span class="w-70 text-secondary-light fw-medium">
+                                : <%= user?.bio ?? 'N/A' %>
+                            </span>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="col-lg-8">
+
+        <div class="card h-100">
+            <div class="card-body p-24">
+
+                <div class="tab-pane fade show active" id="pills-edit-profile">
+
+                    <h6 class="text-md text-primary-light mb-16">
+                        Profile Image
+                    </h6>
+
+                  
+
+                <form action="/dashboard/update/<%= user._id %>" method="POST" enctype="multipart/form-data">
+
+    <!-- Profile Image -->
+    <div class="mb-4">
+        <!-- <h6 class="text-md text-primary-light mb-3">Profile Image</h6> -->
+
+        <div class="avatar-upload">
+            <div class="avatar-edit position-absolute bottom-0 end-0 me-24 mt-16 z-1 cursor-pointer">
+
+                <input
+                    type="file"
+                    id="imageUpload"
+                    name="profileImage"
+                    accept=".jpg,.jpeg,.png"
+                    hidden
+                >
+
+                <label
+                    for="imageUpload"
+                    class="w-32-px h-32-px d-flex justify-content-center align-items-center bg-primary-50 text-primary-600 border border-primary-600 rounded-circle">
+                    <iconify-icon icon="solar:camera-outline"></iconify-icon>
+                </label>
+
+            </div>
+
+            <div class="avatar-preview">
+              <div
+    id="imagePreview"
+    style="background-image:url('/uploads/profileImage %>'); background-size:cover; background-position:center;">
+</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Fields -->
+    <div class="row g-3">
+
+        <!-- Full Name -->
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Full Name</label>
+            <input
+                type="text"
+                class="form-control"
+                name="name"
+                value="<%= user?.name ?? '' %>"
+            >
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Email</label>
+            <input
+                type="email"
+                class="form-control"
+                name="email"
+                value="<%= user?.email ?? '' %>"
+            >
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Phone</label>
+            <input
+                type="text"
+                class="form-control"
+                name="phone"
+                value="<%= user?.phone ?? '' %>"
+            >
+        </div>
+
+        <!-- Department -->
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Department</label>
+            <input
+                type="text"
+                class="form-control"
+                name="department"
+                value="<%= user?.department ?? '' %>"
+            >
+        </div>
+
+        <!-- desgination -->
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">desgination</label>
+            <input
+                type="text"
+                class="form-control"
+                name="desgination"
+                value="<%= user?.desgination ?? '' %>"
+            >
+        </div>
+
+        <!-- Language -->
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Language</label>
+
+            <select class="form-control form-select" name="language">
+                <option value="">Select Language</option>
+
+                <option value="English"
+                    <%= user?.language === 'English' ? 'selected' : '' %>>
+                    English
+                </option>
+
+                <option value="Bangla"
+                    <%= user?.language === 'Bangla' ? 'selected' : '' %>>
+                    Bangla
+                </option>
+
+                <option value="Hindi"
+                    <%= user?.language === 'Hindi' ? 'selected' : '' %>>
+                    Hindi
+                </option>
+
+                <option value="Arabic"
+                    <%= user?.language === 'Arabic' ? 'selected' : '' %>>
+                    Arabic
+                </option>
+            </select>
+        </div>
+
+        <!-- Bio -->
+        <div class="col-12">
+            <label class="form-label fw-semibold">Bio</label>
+
+            <textarea
+                class="form-control"
+                name="bio"
+                rows="4"
+            ><%= user?.bio ?? '' %></textarea>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary px-5">
+            Save Profile
+        </button>
+    </div>
+
+</form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    </main>
+
+<script>
+window.addEventListener("load", function () {
+
+    const preview = document.getElementById("imagePreview");
+
+    preview.style.backgroundImage =
+        "url('/uploads/<%= user?.profileImage || 'user.png' %>')";
+
+    preview.style.backgroundSize = "cover";
+    preview.style.backgroundPosition = "center";
+
+});
+</script>
+  
+    </body>
+    </html>

@@ -1,0 +1,71 @@
+<%- include('./partials/authheader') %>
+<%- include('./partials/sidebar') %>
+
+<main class="dashboard-main">
+    <%- include('./partials/navbar') %>
+
+    <div class="dashboard-main-body admin-page">
+        <section class="page-hero compact">
+            <div>
+                <span class="section-label">Library</span>
+                <h1>View Blogs</h1>
+                <p>Browse, edit, and remove your published blog posts.</p>
+            </div>
+
+            <div class="hero-actions">
+                <a href="/dashboard/add-blog" class="btn btn-primary">
+                    Add Blog
+                </a>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="section-heading">
+                <div>
+                    <span class="section-label">All Posts</span>
+                    <h2><%= blogs.length %> Blog<%= blogs.length === 1 ? '' : 's' %></h2>
+                </div>
+            </div>
+
+            <div class="blog-grid">
+                <% if(blogs.length > 0){ %>
+                    <% blogs.forEach(blog => { %>
+                        <article class="blog-card">
+                            <img src="/uploads/<%= blog.blogpicture %>" alt="blog image">
+
+                            <div class="blog-card-body">
+                                <span class="blog-date">
+                                    <%= new Date(blog.date).toLocaleDateString() %>
+                                </span>
+
+                                <h3><%= blog.title %></h3>
+
+                                <p>
+                                    <%= blog.description.length > 120
+                                        ? blog.description.substring(0,120) + "..."
+                                        : blog.description %>
+                                </p>
+                            </div>
+
+                            <div class="blog-card-actions">
+                                <a href="/dashboard/edit-blog/<%= blog._id %>" class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                <a href="/dashboard/delete-blog/<%= blog._id %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this blog?')">
+                                    Delete
+                                </a>
+                            </div>
+                        </article>
+                    <% }) %>
+                <% } else { %>
+                    <div class="empty-state">
+                        <h3>No Blogs Found</h3>
+                        <p>Create your first blog and it will appear here.</p>
+                        <a href="/dashboard/add-blog" class="btn btn-primary">Add Blog</a>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+    </div>
+</main>
